@@ -1,21 +1,20 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
-
 #include "cell.hpp"
+#include "field.hpp"
+
+void printPosition(sf::Vector2i mousePos){
+  std::cout << "Position X --> " << mousePos.x << " Position Y --> " << mousePos.y << "\n";
+}
 
 
 int main(){
 
+
 sf::RenderWindow window(sf::VideoMode(480,480), "Game of Life", sf::Style::Close);
-std::vector<Cell> vectorOfCells;
 float cellSize = 10.0f;
 
-
-for (int i = 0; i < 480 / cellSize; i++){
-    for (int j = 0; j < 480 / cellSize; j++){
-      vectorOfCells.push_back(Cell(false,cellSize,10.0f*j, 10.0f*i));
-    }
-}
+Field gameField(480,480,cellSize);
 
 while (window.isOpen()){
   sf::Event evnt;
@@ -25,14 +24,27 @@ while (window.isOpen()){
       case sf::Event::Closed:
            window.close();
            break;
+      case sf::Event::MouseButtonPressed:
+             if (evnt.mouseButton.button == sf::Mouse::Left)
+                 std::cout << "Position X --> " << evnt.mouseButton.x << " Position Y --> " << evnt.mouseButton.y << "\n";
+             gameField.changeCellState(evnt.mouseButton.x, evnt.mouseButton.y);
+             break;
+      case sf::Event::KeyPressed:
+            if (evnt.key.code == sf::Keyboard::Space)
+                gameField.stepInTime();
+    }
+
+  }
+
+  window.clear();
+  for (int i = 0; i < gameField.getHeight(); i++){
+    for (int j = 0; j < gameField.getWidth(); j++){
+      window.draw(gameField.getCell(i,j));
     }
   }
 
-  //window.clear();
-  for (int i = 0; i < vectorOfCells.size(); i++){
-      window.draw(vectorOfCells[i]);
-      window.display();
-  }
+  window.display();
+
 
 }
 

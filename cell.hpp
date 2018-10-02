@@ -10,6 +10,8 @@ class Cell : public sf::Drawable{
     float cellSize;
     std::pair<int,int> position; // pair<posX,posY>
     sf::RectangleShape cellDrawable;
+    sf::Texture aliveTexture;
+    sf::Texture deathTexture;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -31,6 +33,10 @@ class Cell : public sf::Drawable{
 
     bool isAlive();
     std::pair<int,int> getPosition();
+
+    // Others
+
+    void setTexture();
 
 
 };
