@@ -13,6 +13,8 @@ class Cell : public sf::Drawable{
     sf::Texture aliveTexture;
     sf::Texture deathTexture;
 
+    // This function allows us to draw the cell using a nicer syntax
+    // window.draw(cell) instead of cell.draw(window).
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   public:
@@ -34,8 +36,9 @@ class Cell : public sf::Drawable{
     bool isAlive();
     std::pair<int,int> getPosition();
 
-    // Others
 
+    // This function sets the correspond texture depending on whether the
+    // cell is dead or alive.
     void setTexture();
 
 

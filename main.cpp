@@ -3,9 +3,7 @@
 #include "cell.hpp"
 #include "field.hpp"
 
-void printPosition(sf::Vector2i mousePos){
-  std::cout << "Position X --> " << mousePos.x << " Position Y --> " << mousePos.y << "\n";
-}
+// TODO implement an initial screen explaining how to use the program
 
 
 int main(){
@@ -30,7 +28,6 @@ while (window.isOpen()){
            break;
       case sf::Event::MouseButtonPressed:
              if ((evnt.mouseButton.button == sf::Mouse::Left) && (isPaused))
-                 std::cout << "Position X --> " << evnt.mouseButton.x << " Position Y --> " << evnt.mouseButton.y << "\n";
              gameField.changeCellState(evnt.mouseButton.x, evnt.mouseButton.y);
              break;
       case sf::Event::KeyPressed:
@@ -45,7 +42,7 @@ while (window.isOpen()){
 
   if (!isPaused)
   gameField.stepInTime();
-  
+
   window.clear();
   for (int i = 0; i < gameField.getHeight(); i++){
     for (int j = 0; j < gameField.getWidth(); j++){

@@ -74,25 +74,15 @@ void Field::changeCellState(int posX, int posY){
 
 
 
+/* I would like to optimice this process and make it
+   more simple */
 
 int Field::analiceNeighbours(int posX, int posY){
 
-  //std::cout << "I made it here!\n";
 
   int numberOfNeighbours = 0;
   int maxPosX = (fieldDimension.first / cellSize) - 1;
   int maxPosY = (fieldDimension.second / cellSize) - 1;
-
-  /*if (posX == 0 && posY == 0){
-    std::cout << "I must arrive here\n";
-    for (int i = posY; i <= posY + 1; i++){
-      for (int j = posX; j <= posX +1; j++){
-
-          if(vectorOfCells[i][j].isAlive())
-            numberOfNeighbours++;
-          }
-        }
-      }*/
 
   if (posY == 0){
 
@@ -187,12 +177,9 @@ int Field::analiceNeighbours(int posX, int posY){
 
     }else{
 
-      std::cout << "Came here, pos: " << posX << " , " << posY << "\n";
       for (int i = posY - 1; i <= posY + 1; i++){
         for (int j = posX - 1; j <= posX + 1; j++){
-            std::cout << "Pos: " << i << " , " << j << "\n";
             if(vectorOfCells[i][j].isAlive()){
-              std::cout << "Neighbour at -> " << j << " , " << i << "\n";
               numberOfNeighbours++;
 
               if ((j == posX) && (i == posY) && (vectorOfCells[i][j].isAlive()) ){
@@ -238,27 +225,21 @@ void Field::stepInTime(){
   for (int i = 0; i < fieldDimension.second / cellSize; i++){
       for (int j = 0; j < fieldDimension.first / cellSize; j++){
 
-          //int numberOfNeighbours = analiceNeighbours(j,i);
-
           int numberOfNeighbours = vectorOfNeighbours[i][j];
 
           if (numberOfNeighbours < 2){
-          //  std::cout << "I'm the cell in the position (" << i << " , " << j << ") -> Have less than 2 neighbours\n";
             // Dies of underpopulation
             if (vectorOfCells[i][j].isAlive()){
                 vectorOfCells[i][j].returnToDeath();
                 vectorOfCells[i][j].setTexture();
             }
           }else if (numberOfNeighbours > 3){
-            std::cout << "I'm the cell in the position (" << i << " , " << j << ") -> Have more than 3 neighbours\n";
             // Dies of overpopulation
             if (vectorOfCells[i][j].isAlive()){
                 vectorOfCells[i][j].returnToDeath();
                 vectorOfCells[i][j].setTexture();
             }
           }else if (numberOfNeighbours == 3){
-
-            std::cout << "I'm the cell in the position (" << i << " , " << j << ") -> Have 3 neighbours\n";
             // If it's dead it becomes alive.
             if (!vectorOfCells[i][j].isAlive()){
                  vectorOfCells[i][j].bringToLife();
