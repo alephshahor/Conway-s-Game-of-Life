@@ -2,58 +2,27 @@
 #include <vector>
 #include "cell.hpp"
 #include "field.hpp"
-
-// TODO implement an initial screen explaining how to use the program
+#include "cScreen.hpp"
+#include "gameScreen.hpp"
+#include "firstScreen.hpp"
 
 
 int main(){
 
 
 sf::RenderWindow window(sf::VideoMode(480,480), "Game of Life", sf::Style::Close);
-float cellSize = 10.0f;
 
-Field gameField(480,480,cellSize);
-gameField.stepInTime();
+std::vector<cScreen*> Screens;
 
-bool isPaused = false;
+firstScreen screen01;
+gameScreen screen02;
+Screens.push_back(&screen01);
+Screens.push_back(&screen02);
 
+int screen = 0;
 
-while (window.isOpen()){
-  sf::Event evnt;
-  while(window.pollEvent(evnt)){
-
-    switch(evnt.type){
-      case sf::Event::Closed:
-           window.close();
-           break;
-      case sf::Event::MouseButtonPressed:
-             if ((evnt.mouseButton.button == sf::Mouse::Left) && (isPaused))
-             gameField.changeCellState(evnt.mouseButton.x, evnt.mouseButton.y);
-             break;
-      case sf::Event::KeyPressed:
-            if (evnt.key.code == sf::Keyboard::Space)
-                if (isPaused)
-                    isPaused = false;
-                else isPaused = true;
-            break;
-    }
-
-  }
-
-  if (!isPaused)
-  gameField.stepInTime();
-
-  window.clear();
-  for (int i = 0; i < gameField.getHeight(); i++){
-    for (int j = 0; j < gameField.getWidth(); j++){
-      window.draw(gameField.getCell(i,j));
-    }
-  }
-
-  window.display();
-
-
-
+while (screen != -1){
+  screen = Screens[screen] -> Run(window);
 }
 
 

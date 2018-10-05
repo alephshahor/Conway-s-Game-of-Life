@@ -2,8 +2,6 @@
 #include <iostream>
 #include "cell.hpp"
 
-
-
 class Field{
 
   private:
