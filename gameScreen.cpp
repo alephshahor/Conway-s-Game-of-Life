@@ -17,6 +17,7 @@ int gameScreen::Run(sf::RenderWindow& window){
       switch(evnt.type){
         case sf::Event::Closed:
              window.close();
+             return -1;
              break;
         case sf::Event::MouseButtonPressed:
                if ((evnt.mouseButton.button == sf::Mouse::Left) && (isPaused))

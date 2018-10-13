@@ -6,8 +6,8 @@ Cell::Cell(bool alive, float cellSize, std::pair<int,int> position):
       cellSize(cellSize),
       position(position)
       {
-        aliveTexture.loadFromFile("black.png");
-        deathTexture.loadFromFile("white.png");
+        aliveTexture.loadFromFile("./art/black.png");
+        deathTexture.loadFromFile("./art/white.png");
         cellDrawable.setSize(sf::Vector2f(cellSize,cellSize));
         cellDrawable.setPosition(position.first, position.second);
       }
@@ -17,8 +17,8 @@ Cell::Cell(bool alive, float cellSize, int posX, int posY){
       this -> cellSize = cellSize;
       position = std::make_pair(posX, posY);
 
-      aliveTexture.loadFromFile("black.png");
-      deathTexture.loadFromFile("white.png");
+      aliveTexture.loadFromFile("./art/black.png");
+      deathTexture.loadFromFile("./art/white.png");
       cellDrawable.setSize(sf::Vector2f(cellSize,cellSize));
       cellDrawable.setPosition(posX, posY);
 }
@@ -43,7 +43,7 @@ void Cell::setPosition(std::pair<int,int> position){
 
 void Cell::setTexture(){
   if (alive)
-  cellDrawable.setTexture(&aliveTexture, true);
+  cellDrawable.setTexture(&aliveTexture);
   else
   cellDrawable.setTexture(&deathTexture);
 }
